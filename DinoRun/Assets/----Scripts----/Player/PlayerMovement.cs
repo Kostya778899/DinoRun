@@ -11,26 +11,54 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AnimationCurve _jumpCurve;
     [SerializeField] private float _jumpDuration = 1f;
 
-    //[SerializeField] private Vector3 _defaultPosition;
-    [SerializeField] private UnityEvent _onStartJump, _onEndJump;
+    //[SerializeField] private UnityEvent _onStartJump, _onEndJump;
+
+    [SerializeField] private StateMachine<StateSettings> _stateMachine;
+
+    private const string _runStateName = "Run";
+    private const string _jumpStateName = "Jump";
+    private const string _runSquatStateName = "RunSquat";
 
     private Rigidbody2D _rigidbody;
     private bool _isJumping = false;
 
 
-    public void TryJump()
+    [System.Serializable]
+    private struct StateSettings
     {
-        if (!_isJumping)
+        public GameObject GraphicsObject;
+        public Collider2D Collider;
+
+
+        public void SetActive(bool value)
         {
-            _isJumping = true;
-            _onStartJump?.Invoke();
-            _rigidbody.DOMoveY(0f, _jumpDuration).SetEase(_jumpCurve).OnComplete(() =>
-            {
-                _isJumping = false;
-                _onEndJump?.Invoke();
-            });
+            if (GraphicsObject) GraphicsObject.SetActive(value);
+            if (Collider) Collider.enabled = value;
         }
     }
 
-    private void Start() => _rigidbody = GetComponent<Rigidbody2D>();
+    public void TryRun()
+    {
+        _stateMachine.TrySetCurrentStateIndex(_runStateName);
+    }
+    public void TryJump()
+    {
+        if (_stateMachine.GetCurrentState().Name != _runSquatStateName && _stateMachine.TrySetCurrentStateIndex(_jumpStateName))
+            _rigidbody.DOMoveY(0f, _jumpDuration).SetEase(_jumpCurve).OnComplete(() => _stateMachine.TrySetCurrentStateIndex(_runStateName));
+    }
+    public void TryRunSquat()
+    {
+        _stateMachine.TrySetCurrentStateIndex(_runSquatStateName);
+    }
+
+    private void Start()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+
+        _stateMachine.OnChangeState.AddListener((newState) =>
+        {
+            for (int i = 0; i < _stateMachine.States.Length; i++) _stateMachine.States[i].Value.SetActive(false);
+            newState.Value.SetActive(true);
+        });
+    }
 }

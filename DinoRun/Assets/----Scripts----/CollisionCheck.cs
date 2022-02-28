@@ -24,7 +24,6 @@ public class CollisionCheck : MonoBehaviour
 
     private void OnCollision(GameObject @object, Collision2D collision = null)
     {
-        Debug.Log(collision);
         _onCollision?.Invoke(@object, collision);
         foreach (var item in _onCollisionWithTags) if (item.TagToCollision == @object.tag) item.Event?.Invoke(@object, collision);
     }
