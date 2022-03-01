@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private const string _runStateName = "Run";
     private const string _jumpStateName = "Jump";
     private const string _runSquatStateName = "RunSquat";
+    private const string _killStateName = "Kill";
 
     private Rigidbody2D _rigidbody;
     private bool _isJumping = false;
@@ -37,19 +38,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void TryRun()
-    {
-        _stateMachine.TrySetCurrentStateIndex(_runStateName);
-    }
+    public void TryRun() => _stateMachine.TrySetCurrentStateIndex(_runStateName);
     public void TryJump()
     {
         if (_stateMachine.GetCurrentState().Name != _runSquatStateName && _stateMachine.TrySetCurrentStateIndex(_jumpStateName))
             _rigidbody.DOMoveY(0f, _jumpDuration).SetEase(_jumpCurve).OnComplete(() => _stateMachine.TrySetCurrentStateIndex(_runStateName));
     }
-    public void TryRunSquat()
-    {
-        _stateMachine.TrySetCurrentStateIndex(_runSquatStateName);
-    }
+    public void TryRunSquat() => _stateMachine.TrySetCurrentStateIndex(_runSquatStateName);
+    public void TryKill() => _stateMachine.TrySetCurrentStateIndex(_killStateName);
 
     private void Start()
     {
