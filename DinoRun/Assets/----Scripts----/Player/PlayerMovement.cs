@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private const string _killStateName = "Kill";
 
     private Rigidbody2D _rigidbody;
+    private Sequence _sequence;
     private bool _isJumping = false;
 
 
@@ -38,14 +39,25 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void TryRun() => _stateMachine.TrySetCurrentStateIndex(_runStateName);
+    public void TryRun()
+    {
+        if (_stateMachine.GetCurrentState().Name != _killStateName) _stateMachine.TrySetCurrentStateIndex(_runStateName);
+    }
     public void TryJump()
     {
         if (_stateMachine.GetCurrentState().Name != _runSquatStateName && _stateMachine.TrySetCurrentStateIndex(_jumpStateName))
-            _rigidbody.DOMoveY(0f, _jumpDuration).SetEase(_jumpCurve).OnComplete(() => _stateMachine.TrySetCurrentStateIndex(_runStateName));
+        {
+            _sequence = DOTween.Sequence();
+            _sequence.Append(_rigidbody.DOMoveY(0f, _jumpDuration).SetEase(_jumpCurve)
+                .OnComplete(() => _stateMachine.TrySetCurrentStateIndex(_runStateName)));
+        }
     }
     public void TryRunSquat() => _stateMachine.TrySetCurrentStateIndex(_runSquatStateName);
-    public void TryKill() => _stateMachine.TrySetCurrentStateIndex(_killStateName);
+    public void TryKill()
+    {
+        _stateMachine.TrySetCurrentStateIndex(_killStateName);
+        _sequence.Pause();
+    }
 
     private void Start()
     {

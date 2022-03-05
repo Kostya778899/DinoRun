@@ -2,26 +2,28 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(menuName = "PauseGameChanger", fileName = "New" + nameof(PauseGameChanger))]
-public class PauseGameChanger : ScriptableObject
+public class PauseGameChanger : ScriptableObject, CMath.IIncluded
 {
     [HideInInspector] public bool IsPaused { get; private set; } = false;
     [HideInInspector] public event Action OnPause, OnResume;
 
 
-    public void Pause()
+    public void Activate()
     {
-        IsPaused = true;
+        SetActive(true);
         OnPause?.Invoke();
-
-        Time.timeScale = 0f;
     }
-    public void Resume()
+    public void DeActivate()
     {
-        IsPaused = false;
+        SetActive(false);
         OnResume?.Invoke();
-
-        Time.timeScale = 1f;
+    }
+    private void SetActive(bool isActive)
+    {
+        IsPaused = isActive;
+        //Time.timeScale = Convert.ToInt32(!isActive);
     }
 }

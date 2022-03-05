@@ -6,25 +6,21 @@ using UnityEngine.Events;
 
 public class Score : MonoBehaviour
 {
-    [HideInInspector] public int Value { get; private set; } = 0;
+    [HideInInspector] public int Value { get; protected set; } = 0;
 
     [SerializeField] private UnityEvent<int> _onSetScore;
-    [SerializeField] private string _saveKey = "Score";
+    [SerializeField] private UiText[] _texts;
+    [SerializeField] private bool _updateCurrentValueIfLessNewValue = true;
 
-    private const int _defaultValue = 0;
 
-
-    public void SetScore(int value)
+    public virtual void SetScore(int value)
     {
         if (value >= 0) Value = value;
         else throw new Exception();
-        Save();
         _onSetScore?.Invoke(Value);
     }
+    public void TrySetScore(int value) { if (value >= 0 && (_updateCurrentValueIfLessNewValue || Value <= value)) SetScore(value); }
 
-    private void Awake() => Load();
-    private void Start() => SetScore(Value);
-
-    private void Save() => PlayerPrefs.SetInt(_saveKey, Value);
-    private void Load() => Value = PlayerPrefs.GetInt(_saveKey, _defaultValue);
+    protected virtual void Awake() => _onSetScore.AddListener((int value) => { foreach (var item in _texts) item.SetValueField(value); });
+    private void Start() => TrySetScore(Value);
 }
