@@ -13,10 +13,18 @@ public class UiText : MonoBehaviour
     private TMP_Text _uiText;
 
 
-    public void SetText(string value) => _uiText.SetText(_text = value);
+    public void TrySetText(string value)
+    {
+        _text = value;
+        if (_uiText && _uiText.text != _text) _uiText.SetText(_text);
+    }
 
-    public void SetValueField(string value) => SetText(_uiText.text.Replace(_text, value));
+    public void SetValueField(string value) => TrySetText(_uiText.text.Replace(_text, value));
     public void SetValueField(int value) => SetValueField(value.ToString());
 
-    private void Awake() => _uiText = GetComponent<TMP_Text>();
+    private void OnEnable()
+    {
+        if (!_uiText) _uiText = GetComponent<TMP_Text>();
+        TrySetText(_text);
+    }
 }

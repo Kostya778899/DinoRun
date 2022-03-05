@@ -9,8 +9,8 @@ using CMath;
 public class GameSpeedTuner : MonoBehaviour
 {
     public UnityEvent<float> OnUpdateGameProgress;
+    public UnityEvent<float> OnUpdateGameProgress01;
     public UnityEvent<float> OnUpdateGameSpeed;
-    public float Progress = 0f;
 
     [SerializeField] private AnimationCurve _gameSpeedCurve;
     [SerializeField] private float _tuneGameSpeedDuration = 60f;
@@ -21,8 +21,11 @@ public class GameSpeedTuner : MonoBehaviour
     private void Start()
     {
         _speed = (_gameSpeedCurve.GetFirstKey().value, _gameSpeedCurve.GetLastKey().value);
+        Time.timeScale = 1f;
 
-        OnUpdateGameProgress.AddListener((float value) => OnUpdateGameProgress?.Invoke(Mathf.InverseLerp(_speed.InStart, _speed.InEnd, value)));
+        OnUpdateGameProgress.AddListener((float value) => OnUpdateGameProgress01.Invoke(Mathf.InverseLerp(_speed.InStart, _speed.InEnd, value)));
+        OnUpdateGameProgress01.AddListener((float value) => OnUpdateGameSpeed?.Invoke(_gameSpeedCurve.Evaluate(value)));
+
         DOTween.To(() => _speed.InStart, x => OnUpdateGameProgress.Invoke(x), _speed.InEnd, _tuneGameSpeedDuration).SetEase(Ease.Linear);
     }
 }

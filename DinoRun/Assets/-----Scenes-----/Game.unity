@@ -689,8 +689,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1484997581}
-  - {fileID: 1719163308}
+  - {fileID: 1526402467}
   m_Father: {fileID: 1424788316}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -928,7 +927,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &445175182
 RectTransform:
@@ -1273,7 +1272,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &538393262
 RectTransform:
@@ -1455,7 +1454,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &628334029
 RectTransform:
@@ -1604,7 +1603,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &640953774
 RectTransform:
@@ -7080,9 +7079,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnUpdateGameProgress:
     m_PersistentCalls:
-      m_Calls: []
-  OnUpdateGameSpeed:
-    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 140873269}
         m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
@@ -7096,69 +7092,74 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  Progress: 0
+  OnUpdateGameProgress01:
+    m_PersistentCalls:
+      m_Calls: []
+  OnUpdateGameSpeed:
+    m_PersistentCalls:
+      m_Calls: []
   _gameSpeedCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 3.697017
-      outSlope: 3.697017
+      inSlope: 14.917696
+      outSlope: 14.917696
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.117593355
-      value: 0.43474463
-      inSlope: -11.232498
-      outSlope: -11.232498
+      time: 0.091415346
+      value: 1.3637064
+      inSlope: 0.56157213
+      outSlope: 0.56157213
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.74955845
       outWeight: 0.12587148
     - serializedVersion: 3
-      time: 0.24922723
-      value: 0.77744853
-      inSlope: 0.5437727
-      outSlope: 0.5437727
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.40472698
-      value: 0.5417237
-      inSlope: 17.941725
-      outSlope: 17.941725
+      time: 0.17724097
+      value: 0.24465612
+      inSlope: -0.0930059
+      outSlope: -0.0930059
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.081440836
+      outWeight: 0.6699425
     - serializedVersion: 3
-      time: 0.5781188
-      value: 0.26535356
-      inSlope: 0.86685884
-      outSlope: 0.86685884
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.73315924
-      value: 0.7812697
-      inSlope: -8.885092
-      outSlope: -8.885092
+      time: 0.43418097
+      value: 0.25028884
+      inSlope: 0.43334076
+      outSlope: 0.43334076
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.07292189
+      outWeight: 0.40226492
+    - serializedVersion: 3
+      time: 0.6206581
+      value: 0.23803116
+      inSlope: 0.10152969
+      outSlope: 0.10152969
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.6873477
+      value: 1.2867341
+      inSlope: -0.03061594
+      outSlope: -0.03061594
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.5389134
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0.8197034
-      outSlope: 0.8197034
+      inSlope: -0.9171022
+      outSlope: -0.9171022
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -7176,6 +7177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1424788316}
+  - component: {fileID: 1424788317}
   m_Layer: 0
   m_Name: KillWindow
   m_TagString: Untagged
@@ -7199,6 +7201,19 @@ Transform:
   m_Father: {fileID: 1459520534}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1424788317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424788315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83123afac1e503e458c55eb3781f977a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _graphics: {fileID: 1526402466}
 --- !u!1 &1438934367
 GameObject:
   m_ObjectHideFlags: 0
@@ -7275,7 +7290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1459520534
 Transform:
   m_ObjectHideFlags: 0
@@ -7310,7 +7325,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _onKill:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1424788317}
+        m_TargetAssemblyTypeName: KillWindow, Assembly-CSharp
+        m_MethodName: Activate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _setTimeScaleCurve:
     serializedVersion: 2
     m_Curve:
@@ -7370,12 +7397,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484997580}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 370385925}
+  m_Father: {fileID: 1526402467}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7421,6 +7448,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484997580}
   m_CullTransparentMesh: 1
+--- !u!1 &1526402466
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1526402467}
+  m_Layer: 0
+  m_Name: Graphics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!224 &1526402467
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526402466}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1484997581}
+  - {fileID: 1719163308}
+  m_Father: {fileID: 370385925}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1620822203
 GameObject:
   m_ObjectHideFlags: 0
@@ -7976,7 +8041,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1719163307}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7985,7 +8050,7 @@ RectTransform:
   - {fileID: 1919486024}
   - {fileID: 628334029}
   - {fileID: 538393262}
-  m_Father: {fileID: 370385925}
+  m_Father: {fileID: 1526402467}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
@@ -8243,7 +8308,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &1919486024
 RectTransform:

@@ -12,7 +12,7 @@ public class GameEventsTuner : MonoBehaviour
 
     private void Start()
     {
-        _speedTuner.OnUpdateGameSpeed.AddListener(TrySetNextState);
+        _speedTuner.OnUpdateGameProgress.AddListener(TrySetNextState);
     }
 
     private void TrySetNextState(float gameSpeed)

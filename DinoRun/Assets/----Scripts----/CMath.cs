@@ -7,6 +7,11 @@ using TMPro;
 
 namespace CMath
 {
+    public interface IActivatable { public void Activate(); }
+    public interface IDeActivatable { public void DeActivate(); }
+    public interface IIncluded : IActivatable, IDeActivatable { public void SetActive(bool isActive); }
+
+
     public class CMath : MonoBehaviour
     {
         
