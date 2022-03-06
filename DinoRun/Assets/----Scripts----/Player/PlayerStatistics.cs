@@ -5,16 +5,20 @@ using UnityEngine;
 
 public class PlayerStatistics : MonoBehaviour
 {
-    [SerializeField] private Score _currentScore;
-    [SerializeField] private Score _highScore;
+    [SerializeField] private PlayerKill _kill;
+    [SerializeField] private Score _currentScore, _highScore;
 
 
-    public void UpdatingCurrentScore(int value)
+    public void UpdatingScoresTexts()
     {
-        
+        _currentScore.UpdatingTexts();
+        _highScore.UpdatingTexts();
     }
-    public void UpdatingHighScore(int value)
-    {
+    public void TryUpdatingScores(int value) => _currentScore.TrySetScore(value);
 
-    }
+    public void AddToCurrentScore(int value) => TryUpdatingScores(_currentScore.Value + value);
+
+    private void Start() => _kill.OnKill.AddListener(OnEndSession);
+
+    private void OnEndSession() => _highScore.TrySetScore(_currentScore.Value);
 }

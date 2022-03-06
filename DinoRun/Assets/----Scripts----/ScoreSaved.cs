@@ -7,8 +7,6 @@ public class ScoreSaved : Score
 {
     [SerializeField] private string _saveKey = "Score";
 
-    private const int _defaultValue = 0;
-
 
     public override void SetScore(int value)
     {
@@ -18,8 +16,8 @@ public class ScoreSaved : Score
 
     protected override void Awake()
     {
-        Load();
         base.Awake();
+        Load();
     }
 
     private void Save() => PlayerPrefs.SetInt(_saveKey, Value);
