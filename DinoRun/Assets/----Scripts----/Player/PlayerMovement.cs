@@ -8,8 +8,11 @@ using DG.Tweening;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private AnimationCurve _jumpCurve;
-    [SerializeField] private float _jumpDuration = 1f;
+    [Min(1)] public int JumpsCount = 1;
+    [Min(0)] public float JumpForce = 500f;
+
+    //[SerializeField] private AnimationCurve _jumpCurve;
+    //[SerializeField] private float _jumpDuration = 1f;
 
     //[SerializeField] private UnityEvent _onStartJump, _onEndJump;
 
@@ -21,8 +24,9 @@ public class PlayerMovement : MonoBehaviour
     private const string _killStateName = "Kill";
 
     private Rigidbody2D _rigidbody;
-    private Sequence _sequence;
-    private bool _isJumping = false;
+    //private Sequence _jumpSequence;
+    private int _jumpsCount = 1;
+    //private bool _isJumping = false;
 
 
     [System.Serializable]
@@ -45,18 +49,32 @@ public class PlayerMovement : MonoBehaviour
     }
     public void TryJump()
     {
-        if (_stateMachine.GetCurrentState().Name != _runSquatStateName && _stateMachine.TrySetCurrentStateIndex(_jumpStateName))
+        if (_stateMachine.GetCurrentState().Name == _runSquatStateName) return;
+
+        if (_stateMachine.TrySetCurrentStateIndex(_jumpStateName)) _jumpsCount = JumpsCount;
+
+        if (_jumpsCount > 0)
         {
-            _sequence = DOTween.Sequence();
-            _sequence.Append(_rigidbody.DOMoveY(0f, _jumpDuration).SetEase(_jumpCurve)
-                .OnComplete(() => _stateMachine.TrySetCurrentStateIndex(_runStateName)));
+            _jumpsCount--;
+
+            //if (_jumpSequence.IsActive()) _jumpSequence.Pause();
+            //_jumpSequence = DOTween.Sequence();
+
+            _rigidbody.AddForce(new Vector2(0f, JumpForce));
+            //_jumpSequence.Append(_rigidbody.DOMoveY(transform.position.y + JumpHeight, _jumpDuration).SetEase(_jumpCurve)
+            //    .OnComplete(() => _stateMachine.TrySetCurrentStateIndex(_runStateName)));
         }
     }
     public void TryRunSquat() => _stateMachine.TrySetCurrentStateIndex(_runSquatStateName);
     public void TryKill()
     {
         _stateMachine.TrySetCurrentStateIndex(_killStateName);
-        _sequence.Pause();
+        //_jumpSequence.Pause();
+    }
+
+    public void OnCollisionWithGround()
+    {
+        if (_stateMachine.GetCurrentState().Name == _jumpStateName) _stateMachine.TrySetCurrentStateIndex(_runStateName);
     }
 
     private void Start()
