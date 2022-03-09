@@ -1,5 +1,7 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 namespace CMath
 {
@@ -16,6 +18,7 @@ namespace CMath
         }
     }
 
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(NullableVar<bool>))]
     [CustomPropertyDrawer(typeof(NullableVar<int>))]
     [CustomPropertyDrawer(typeof(NullableVar<float>))]
@@ -48,4 +51,5 @@ namespace CMath
             EditorGUI.EndProperty();
         }
     }
+#endif
 }
