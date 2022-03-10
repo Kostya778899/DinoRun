@@ -20,8 +20,36 @@ namespace CMath
         public T Current, Default;
 
         public RollbackVar(T value) => (Current, Default) = (value, value);
+
         public void Reset() => Current = Default;
+
+
+
     }
+#if UNITY_EDITOR
+    [CustomPropertyDrawer(typeof(RollbackVar<bool>))]
+    [CustomPropertyDrawer(typeof(RollbackVar<int>))]
+    [CustomPropertyDrawer(typeof(RollbackVar<float>))]
+    [CustomPropertyDrawer(typeof(RollbackVar<string>))]
+    public class RollbackVarDrawer : PropertyDrawer
+    {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            EditorGUI.BeginProperty(position, label, property);
+            position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
+            var indent = EditorGUI.indentLevel;
+            EditorGUI.indentLevel = 0;
+
+            EditorGUI.PropertyField(new Rect(position.x, position.y, 50f, position.height),
+                property.FindPropertyRelative("Default"), GUIContent.none);
+            EditorGUI.PropertyField(new Rect(position.x + 55f, position.y, 120f, position.height),
+                property.FindPropertyRelative("Current"), GUIContent.none);
+
+            EditorGUI.indentLevel = indent;
+            EditorGUI.EndProperty();
+        }
+    }
+#endif
 
 
     public class CMath : MonoBehaviour

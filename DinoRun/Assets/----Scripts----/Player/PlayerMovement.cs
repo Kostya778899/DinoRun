@@ -9,8 +9,8 @@ using CMath;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    [Min(1)] public int JumpsCount = 1;
-    public RollbackVar<int> JumpsCoun0 = new(1);
+    //[Min(1)] public int JumpsCount = 1;
+    public RollbackVar<int> JumpsCoun = new(1);
     [Min(0f)] public float JumpVelocity = 14f;
     [Min(0f)] public float DownDashForce = 1200f;
 
@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D _rigidbody;
     //private Sequence _jumpSequence;
-    private int _jumpsCount = 1;
+    private int _currentJumpsCount = 1;
     //private bool _isJumping = false;
 
 
@@ -56,9 +56,9 @@ public class PlayerMovement : MonoBehaviour
 
         //if (_stateMachine.TrySetCurrentStateIndex(_jumpStateName)) _jumpsCount = JumpsCount;
 
-        if (_jumpsCount > 0)
+        if (_currentJumpsCount > 0)
         {
-            _jumpsCount--;
+            _currentJumpsCount--;
 
             //if (_jumpSequence.IsActive()) _jumpSequence.Pause();
             //_jumpSequence = DOTween.Sequence();
@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnCollisionWithGround()
     {
         if (_stateMachine.GetCurrentState().Name == _jumpStateName/* && _rigidbody.velocity.y <= 0f*/) _stateMachine.TrySetCurrentStateIndex(_runStateName);
-        _jumpsCount = JumpsCount;
+        _currentJumpsCount = JumpsCoun.Current;
     }
 
     private void Start()
