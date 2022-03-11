@@ -10,9 +10,9 @@ using CMath;
 public class PlayerMovement : MonoBehaviour
 {
     //[Min(1)] public int JumpsCount = 1;
-    public RollbackVar<int> JumpsCoun = new(1);
-    [Min(0f)] public float JumpVelocity = 14f;
-    [Min(0f)] public float DownDashForce = 1200f;
+    public RollbackVar<int> JumpsCount = new(1);
+    public RollbackVar<float> JumpVelocity = new(14f);
+    public RollbackVar<float> DownDashForce = new(1200f);
 
     //[SerializeField] private AnimationCurve _jumpCurve;
     //[SerializeField] private float _jumpDuration = 1f;
@@ -54,19 +54,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_stateMachine.GetCurrentState().Name == _runSquatStateName) return;
 
-        //if (_stateMachine.TrySetCurrentStateIndex(_jumpStateName)) _jumpsCount = JumpsCount;
-
         if (_currentJumpsCount > 0)
         {
             _currentJumpsCount--;
-
-            //if (_jumpSequence.IsActive()) _jumpSequence.Pause();
-            //_jumpSequence = DOTween.Sequence();
-
-            //_rigidbody.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, JumpVelocity);
-            //_jumpSequence.Append(_rigidbody.DOMoveY(transform.position.y + JumpHeight, _jumpDuration).SetEase(_jumpCurve)
-            //    .OnComplete(() => _stateMachine.TrySetCurrentStateIndex(_runStateName)));
+            _stateMachine.TrySetCurrentStateIndex(_jumpStateName);
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, JumpVelocity.Current);
         }
     }
     public void TryRunSquat()
@@ -74,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         if (_stateMachine.GetCurrentState().Name == _jumpStateName)
         {
             //_rigidbody.velocity = new Vector2(_rigidbody.velocity.x, -DownDashVelocity);
-            _rigidbody.AddForce(new Vector2(0f, -DownDashForce));
+            _rigidbody.AddForce(new Vector2(0f, -DownDashForce.Current));
         }
         _stateMachine.TrySetCurrentStateIndex(_runSquatStateName);
     }
@@ -86,13 +78,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnCollisionWithGround()
     {
-        if (_stateMachine.GetCurrentState().Name == _jumpStateName/* && _rigidbody.velocity.y <= 0f*/) _stateMachine.TrySetCurrentStateIndex(_runStateName);
-        _currentJumpsCount = JumpsCoun.Current;
+        if (_stateMachine.GetCurrentState().Name == _jumpStateName && _rigidbody.velocity.y <= 0f)
+        {
+            _stateMachine.TrySetCurrentStateIndex(_runStateName);
+            _currentJumpsCount = JumpsCount.Current;
+        }
     }
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _currentJumpsCount = JumpsCount.Current;
 
         _stateMachine.OnChangeState.AddListener((newState) =>
         {

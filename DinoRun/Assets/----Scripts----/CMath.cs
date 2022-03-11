@@ -20,11 +20,7 @@ namespace CMath
         public T Current, Default;
 
         public RollbackVar(T value) => (Current, Default) = (value, value);
-
         public void Reset() => Current = Default;
-
-
-
     }
 #if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(RollbackVar<bool>))]

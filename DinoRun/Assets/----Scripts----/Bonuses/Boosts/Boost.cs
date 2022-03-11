@@ -9,7 +9,6 @@ public abstract class Boost : MonoBehaviour
 {
     protected GameObject Target;
 
-    [SerializeField] private float _workTime = 5f;
     [SerializeField] private UnityEvent<GameObject> _onActivate, _onDeActivate;
 
 

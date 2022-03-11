@@ -15,15 +15,11 @@ public class AirJumpsBoost : TemporaryBoost
         base.Activate(target);
 
         _playerMovement = target.GetComponentInChildren<PlayerMovement>();
-        _playerMovement.JumpsCoun.Current = _jumpsCount;
-
-        _playerMovement.JumpsCoun.Current = 3;
-        Debug.Log("AA");
+        _playerMovement.JumpsCount.Current = _jumpsCount;
     }
     public override void DeActivate()
     {
         base.DeActivate();
-        Debug.Log("BB");
-        _playerMovement.JumpsCoun.Reset();
+        _playerMovement.JumpsCount.Reset();
     }
 }

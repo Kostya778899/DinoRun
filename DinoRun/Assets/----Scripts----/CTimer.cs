@@ -7,14 +7,14 @@ using CMath;
 
 public class CTimer : MonoBehaviour, CMath.IIncluded
 {
+    public UnityEvent<float> OnStep;
+    public UnityEvent<float> OnStep01;
+    public UnityEvent OnCompletion;
+
     [SerializeField] private bool _enabledOnStart = true;
     [SerializeField] private NullableVar<float> _time = new NullableVar<float>(30f);
     [Min(0f), SerializeField] private float _stepSize = 1f;
     [SerializeField] private bool _usingRealtime = false;
-
-    [SerializeField] private UnityEvent<float> _onStep;
-    [SerializeField] private UnityEvent<float> _onStep01;
-    [SerializeField] private UnityEvent _onCompletion;
 
     private bool _isPaused = false;
 
@@ -33,15 +33,15 @@ public class CTimer : MonoBehaviour, CMath.IIncluded
         {
             yield return new WaitWhile(() => _isPaused);
 
-            _onStep?.Invoke(t);
-            _onStep01?.Invoke(Mathf.InverseLerp(0f, _time.Value, t));
+            OnStep?.Invoke(t);
+            OnStep01?.Invoke(Mathf.InverseLerp(0f, _time.Value, t));
 
             if (t >= float.MaxValue) t = 0f;
             if (_usingRealtime) yield return new WaitForSecondsRealtime(_stepSize);
             else yield return new WaitForSeconds(_stepSize);
         }
-        _onStep01?.Invoke(1f);
-        _onCompletion?.Invoke();
+        OnStep01?.Invoke(1f);
+        OnCompletion?.Invoke();
     }
 
     private void Start() { if (_enabledOnStart) Pinpoint(); }

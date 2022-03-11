@@ -5,20 +5,26 @@ using System.Threading.Tasks;
 using UnityEngine;
 using CMath;
 
+[RequireComponent(typeof(CTimer))]
 public abstract class TemporaryBoost : Boost
 {
-    [SerializeField] private float _lifetime = 5f;
+    [HideInInspector] public CTimer Timer { get; private set; }
 
 
-    public override async void Activate(GameObject target)
+    public override void Activate(GameObject target)
     {
         base.Activate(target);
 
-        await Task.Delay(CConvert.Milliseconds(_lifetime));
-        DeActivate();
+        Timer.Pinpoint();
     }
     public override void DeActivate()
     {
         base.DeActivate();
+    }
+
+    private void Awake()
+    {
+        Timer = GetComponent<CTimer>();
+        Timer.OnCompletion.AddListener(DeActivate);
     }
 }
