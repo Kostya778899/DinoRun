@@ -5,13 +5,22 @@ using UnityEngine;
 
 public class AvailableBoostsUi : MonoBehaviour
 {
-    [SerializeField] private BoostUiIcon _boostUiIconPrefab;
     [SerializeField] private Transform _content;
+    //[SerializeField] private BoostUiIcon _boostUiIconPrefab;
 
 
-    public void AddBoost(Boost value)
-    {
-        var boostUiIcon = Instantiate(_boostUiIconPrefab.gameObject, _content).GetComponent<BoostUiIcon>();
-        (value as TemporaryBoost)?.Timer.OnStep01.AddListener((float value) => boostUiIcon.FilledImage.fillAmount = value);
-    }
+    //public void AddBoost(Boost boost)
+    //{
+    //    var boostUiIcon = Instantiate(_boostUiIconPrefab.gameObject, _content).GetComponent<BoostUiIcon>();
+    //    boostUiIcon.Activate();
+
+    //    var temporaryBoost = boost as TemporaryBoost;
+    //    if (temporaryBoost)
+    //    {
+    //        temporaryBoost.Timer.OnStep01.AddListener((float value) => boostUiIcon.FilledImage.fillAmount = value);
+    //        temporaryBoost.Timer.OnCompletion.AddListener(() => boostUiIcon.DeActivate());
+    //    }
+    //}
+
+    public BoostUiIcon AddBoostUiIcon(BoostUiIcon boostUiIcon) => Instantiate(boostUiIcon.gameObject, _content).GetComponent<BoostUiIcon>();
 }

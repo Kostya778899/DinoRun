@@ -13,8 +13,12 @@ public class AirJumpsBoost : TemporaryBoost
     public override void Activate(GameObject target)
     {
         base.Activate(target);
+        ActivateUiIcon<TemporaryBoostUiIcon>().Activate();
 
         _playerMovement = target.GetComponentInChildren<PlayerMovement>();
+        transform.SetParent(_playerMovement.transform);
+        transform.localPosition = Vector3.zero;
+
         _playerMovement.JumpsCount.Current = _jumpsCount;
     }
     public override void DeActivate()

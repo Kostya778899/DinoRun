@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEditor.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -14,6 +15,7 @@ namespace CMath
     public interface IDeActivatable { public void DeActivate(); }
     public interface IIncluded : IActivatable, IDeActivatable { private void SetActive(bool isActive) { } }
 
+    #region RollbackVar
     [Serializable]
     public struct RollbackVar<T>
     {
@@ -46,6 +48,7 @@ namespace CMath
         }
     }
 #endif
+    #endregion
 
 
     public class CMath : MonoBehaviour
@@ -73,7 +76,25 @@ namespace CMath
     {
         public static void Invoke(this MonoBehaviour monoBehaviour, Action action, float time) => monoBehaviour.Invoke(action.Method.Name, time);
     }
-
+    public static class CArray
+    {
+        public static List<T> Copy<T>(this IEnumerator enumerator)
+        {
+            List<T> array = new(1);
+            enumerator.Reset();
+            while (enumerator.MoveNext()) array.Add((T)enumerator.Current);
+            return array;
+        }
+        public static List<T> Copy<T>(this IEnumerable enumerable) => Copy<T>(enumerable.GetEnumerator());
+    }
+    public class CEditor
+    {
+        public static void SetObjectDirty(GameObject @object)
+        {
+            EditorUtility.SetDirty(@object);
+            EditorSceneManager.MarkSceneDirty(@object.scene);
+        }
+    }
 
     //    public class ShowIfActionAttribute : PropertyAttribute
     //    {
