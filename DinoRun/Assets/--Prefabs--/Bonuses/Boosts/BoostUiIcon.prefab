@@ -275,7 +275,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2650068292843774417}
-  - component: {fileID: -2040022969034454941}
+  - component: {fileID: -8550470392686027866}
   m_Layer: 0
   m_Name: BoostUiIcon
   m_TagString: Untagged
@@ -306,7 +306,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &-2040022969034454941
+--- !u!114 &-8550470392686027866
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -315,10 +315,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2650068292843774416}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da6abd5c7e120224289b84c31641bed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b183cb4db8e05547871dacd0835584e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FilledImage: {fileID: 2650068293434769547}
+  _setActiveAnimationDuration: 0.8
+  _timerFilledImage: {fileID: 2650068293434769547}
 --- !u!1 &2650068293434769545
 GameObject:
   m_ObjectHideFlags: 0

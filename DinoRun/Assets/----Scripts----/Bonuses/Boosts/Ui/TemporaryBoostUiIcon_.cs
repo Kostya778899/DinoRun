@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TemporaryBoostUiIcon : BoostUiIcon
+public class TemporaryBoostUiIcon_ : BoostUiIcon
 {
-    public Image TimerFilledImage;
+    [SerializeField] private Image _timerFilledImage;
 
 
     public override void Activate()
@@ -19,4 +19,5 @@ public class TemporaryBoostUiIcon : BoostUiIcon
         base.DeActivate();
 
     }
+    public void SetTimerFill(float value) => _timerFilledImage.fillAmount = value;
 }
