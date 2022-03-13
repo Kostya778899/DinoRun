@@ -78,11 +78,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnCollisionWithGround()
     {
-        if (_stateMachine.GetCurrentState().Name == _jumpStateName && _rigidbody.velocity.y <= 0f)
-        {
-            _stateMachine.TrySetCurrentStateIndex(_runStateName);
-            _currentJumpsCount = JumpsCount.Current;
-        }
+        if (_stateMachine.GetCurrentState().Name == _jumpStateName) _stateMachine.TrySetCurrentStateIndex(_runStateName);
+        if (_rigidbody.velocity.y <= 0f) _currentJumpsCount = JumpsCount.Current;
     }
 
     private void Start()

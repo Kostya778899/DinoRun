@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEditor.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.SceneManagement;
 #endif
 using TMPro;
 
@@ -87,6 +87,7 @@ namespace CMath
         }
         public static List<T> Copy<T>(this IEnumerable enumerable) => Copy<T>(enumerable.GetEnumerator());
     }
+#if UNITY_EDITOR
     public class CEditor
     {
         public static void SetObjectDirty(GameObject @object)
@@ -95,6 +96,7 @@ namespace CMath
             EditorSceneManager.MarkSceneDirty(@object.scene);
         }
     }
+#endif
 
     //    public class ShowIfActionAttribute : PropertyAttribute
     //    {
