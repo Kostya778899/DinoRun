@@ -52,7 +52,12 @@ public class PlayerMovement : MonoBehaviour
     }
     public void TryJump()
     {
-        if (_stateMachine.GetCurrentState().Name == _runSquatStateName) return;
+        //if (_stateMachine.GetCurrentState().Name == _runSquatStateName) return;
+        switch (_stateMachine.GetCurrentState().Name)
+        {
+            case _runSquatStateName: return;
+            case _killStateName: return;
+        }
 
         if (_currentJumpsCount > 0)
         {
@@ -63,6 +68,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void TryRunSquat()
     {
+        if (_stateMachine.GetCurrentState().Name == _killStateName) return;
+
         if (_stateMachine.GetCurrentState().Name == _jumpStateName)
         {
             //_rigidbody.velocity = new Vector2(_rigidbody.velocity.x, -DownDashVelocity);
