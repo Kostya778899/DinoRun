@@ -18408,7 +18408,7 @@ MonoBehaviour:
         m_PersistentCalls:
           m_Calls: []
     - Name: 
-      Value: 45
+      Value: 20
       OnEnter:
         m_PersistentCalls:
           m_Calls:
